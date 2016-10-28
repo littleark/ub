@@ -1,0 +1,19 @@
+.map-sf {
+	width:100%;
+	height:100vh;
+	
+	svg {
+		width:100%;
+		height:100%;
+
+		path {
+			fill:none;
+			stroke:#333;
+			stroke-width:1;
+		}
+
+		circle {
+			fill:#ff6600;
+		}
+	}
+}
