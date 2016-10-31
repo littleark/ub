@@ -13,6 +13,12 @@ import {
 import {
 	mean
 } from 'd3-array';
+import {
+	entries
+} from 'd3-collection';
+import {
+	line as d3_line
+} from 'd3-shape';
 
 export default (options) => {
 	console.log(options)
@@ -109,27 +115,30 @@ export default (options) => {
 					//areas[title].
 				}
 
-				console.log(areas)
-				return;
 
-				/*let location=svg.selectAll("g.location")
-						.data(locations)
+				let area_line=d3_line()
+												.x(d=>d[0])
+												.y(d=>d[1])
+
+				let location=svg.selectAll("g.area")
+						.data(entries(areas))
 						.enter()
 						.append("g")
-							.attr("class","location")
-							.attr("data-info",d=>d.location)
-							.attr("transform",d=>{
-								let coord=projection([+d.lon,+d.lat])
-								console.log(coord);
-								let x=coord[0],
-									y=coord[1];
-								return `translate(${x},${y})`;
-							})
+							.attr("class","area")
+							.attr("data-info",d=>d.key)
 
-				location.append("circle")
-							.attr("cx",0)
-							.attr("cy",0)
-							.attr("r",4)*/
+				location.append("path")
+									.attr("d",d=>{
+										let points=d.value.coords;
+										console.log(points)
+										return area_line(points)
+										//return line()
+									})
+
+				// location.append("circle")
+				// 			.attr("cx",0)
+				// 			.attr("cy",0)
+				// 			.attr("r",4)*/
 
 			})
 		});

@@ -11,9 +11,11 @@ System.config({
     "babel-runtime": "npm:babel-runtime@5.8.38",
     "core-js": "npm:core-js@1.2.7",
     "d3-array": "npm:d3-array@1.0.1",
+    "d3-collection": "npm:d3-collection@1.0.1",
     "d3-fetch": "npm:d3-fetch@0.0.2",
     "d3-geo": "npm:d3-geo@1.2.6",
     "d3-selection": "npm:d3-selection@1.0.2",
+    "d3-shape": "npm:d3-shape@1.0.3",
     "topojson": "npm:topojson@1.6.27",
     "traceur": "github:jmcriffey/bower-traceur@0.0.93",
     "traceur-runtime": "github:jmcriffey/bower-traceur-runtime@0.0.93",
@@ -137,6 +139,9 @@ System.config({
     "npm:d3-geo@1.2.6": {
       "buffer": "github:jspm/nodelibs-buffer@0.1.0",
       "d3-array": "npm:d3-array@1.0.1"
+    },
+    "npm:d3-shape@1.0.3": {
+      "d3-path": "npm:d3-path@1.0.2"
     },
     "npm:duplexer2@0.0.2": {
       "readable-stream": "npm:readable-stream@1.1.14"
