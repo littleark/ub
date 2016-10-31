@@ -10,6 +10,9 @@ import {
 	json as d3_json,
 	csv
 } from 'd3-fetch';
+import {
+	mean
+} from 'd3-array';
 
 export default (options) => {
 	console.log(options)
@@ -29,7 +32,7 @@ export default (options) => {
 
 	let projection = geoMercator()
 					    .center([-122.433701, 37.767683])
-					    .scale(25000)
+					    .scale(250000)
 					    .translate([WIDTH / 2, HEIGHT / 2]);
 
 	//xMin,yMin -122.737,37.449 : xMax,yMax -122.011,37.955
@@ -58,15 +61,15 @@ export default (options) => {
 						return location.location.indexOf(film.Locations)>-1
 					});
 					if(!location) {
-						console.log(film)	
+						console.log(film)
 					} else {
 						film.coordinates={
 							lon:+location.lon,
 							lat:+location.lat
-						}	
+						}
 					}
-					
-					
+
+
 				})
 
 				let areas={};
@@ -74,10 +77,38 @@ export default (options) => {
 				films.forEach(film=>{
 					if(!areas[film.Title]) {
 						areas[film.Title]=film;
-						areas[film.Title].locations=[]
+						areas[film.Title].locations=[];
+						areas[film.Title].coords=[];
 					}
-					areas[film.Title].locations.push(film.coordinates)
+					if(film.coordinates) {
+						areas[film.Title].locations.push(film.coordinates)
+						let coords=projection([+film.coordinates.lon,+film.coordinates.lat])
+						areas[film.Title].coords.push(coords)
+					}
 				})
+
+				for(let title in areas) {
+					/* jshint loopfunc: true */
+					//console.log(title,areas[title])
+					areas[title].location_mean={
+						lon:mean(areas[title].locations,l=>+l.lon),
+						lat:mean(areas[title].locations,l=>+l.lat)
+					}
+					let coord_mean=[
+						mean(areas[title].coords,l=>l[0]),
+						mean(areas[title].coords,l=>l[1])
+					];
+					areas[title].coord_mean=coord_mean;
+
+					areas[title].coords=areas[title].coords.sort((a,b)=>{
+																let alpha=Math.atan2(a.y-coord_mean[1],a.x-coord_mean[0]),
+																		beta=Math.atan2(b.y-coord_mean[1],b.x-coord_mean[0])
+																return alpha - beta;
+															})
+
+					//areas[title].
+				}
+
 				console.log(areas)
 				return;
 

@@ -10,6 +10,7 @@ System.config({
     "babel": "npm:babel-core@5.8.38",
     "babel-runtime": "npm:babel-runtime@5.8.38",
     "core-js": "npm:core-js@1.2.7",
+    "d3-array": "npm:d3-array@1.0.1",
     "d3-fetch": "npm:d3-fetch@0.0.2",
     "d3-geo": "npm:d3-geo@1.2.6",
     "d3-selection": "npm:d3-selection@1.0.2",
